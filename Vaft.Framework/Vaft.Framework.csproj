@@ -1,79 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91FD4AA4-053A-4DC2-B54C-D0E15894494E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vaft.Framework</RootNamespace>
-    <AssemblyName>Vaft.Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TestProjectType>UnitTest</TestProjectType>
+    <OutDir>bin</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Chrome|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Chrome\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Firefox|AnyCPU'">
-    <OutputPath>bin\Firefox\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IE|AnyCPU'">
-    <OutputPath>bin\IE\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IE10|AnyCPU'">
-    <OutputPath>bin\IE10\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'IE11|AnyCPU'">
-    <OutputPath>bin\IE11\</OutputPath>
+  <PropertyGroup>
+    <Company>Visma</Company>
+    <Product>Vaft.Framework</Product>
+    <PackageId>Vaft.Framework</PackageId>
+    <Authors>Visma</Authors>
+    <Copyright>Copyright ©  2018</Copyright>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BrowserStackLocal" Version="0.2.0.0" />
-    <PackageReference Include="fasterflect" Version="2.1.3" />
-    <PackageReference Include="log4net" Version="2.0.5" />
-    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.4.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="8.0.3" />
-    <PackageReference Include="NLog" Version="4.4.12" />
-    <PackageReference Include="NUnit" Version="3.7.0" />
-    <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.42" />
-    <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.22.0" />
-    <PackageReference Include="Selenium.Support" Version="3.14.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.14.0" />
-    <PackageReference Include="SpecFlow" Version="2.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.11.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="NLog" Version="4.5.11" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.45.0" />
+    <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.23.0" />
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.5" />
+    <PackageReference Include="SpecFlow" Version="2.4.1" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -87,58 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowserStack\BsTunnel.cs" />
-    <Compile Include="Core\BrowserType.cs" />
-    <Compile Include="Core\IProfileInitializer.cs" />
-    <Compile Include="Core\MsTestBase.cs" />
-    <Compile Include="Core\PageBase.cs" />
-    <Compile Include="Core\ScreenShotRemoteWebDriver.cs" />
-    <Compile Include="Core\SpecFlowTestBase.cs" />
-    <Compile Include="Core\TestBase.cs" />
-    <Compile Include="Core\VaftTestContext.cs" />
-    <Compile Include="Core\WebOperationBase.cs" />
-    <Compile Include="Core\XUnitTestBase.cs" />
-    <Compile Include="DriverFactory\AppiumDriverFactory.cs" />
-    <Compile Include="DriverFactory\BrowserStackDriverFactory.cs" />
-    <Compile Include="DriverFactory\LocalDriverFactory.cs" />
-    <Compile Include="DriverFactory\RemoteDriverFactory.cs" />
-    <Compile Include="Driver\VaftDriver.cs" />
-    <Compile Include="Driver\WebDriverExt.cs" />
-    <Compile Include="Element\AdvancedUtils.cs" />
-    <Compile Include="Element\CheckboxUtils.cs" />
-    <Compile Include="Element\DropdownUtils.cs" />
-    <Compile Include="Element\ElementAssertUtils.cs" />
-    <Compile Include="Element\ElementCheckUtils.cs" />
-    <Compile Include="Element\ElementWaitUtils.cs" />
-    <Compile Include="Element\WebElementExt.cs" />
-    <Compile Include="Exceptions\DebugModeException.cs" />
-    <Compile Include="Exceptions\ElementNotEnabledException.cs" />
-    <Compile Include="Exceptions\InvalidBrowserException.cs" />
-    <Compile Include="Exceptions\InvalidDropdownValueException.cs" />
-    <Compile Include="Exceptions\InvalidWindowSizeException.cs" />
-    <Compile Include="Exceptions\VaftException.cs" />
-    <Compile Include="Logging\IVaftLogger.cs" />
-    <Compile Include="Logging\VaftLogger.cs" />
-    <Compile Include="Logging\VaftLogInitializer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\AppiumSettings.cs" />
-    <Compile Include="Settings\BrowserStackSettings.cs" />
-    <Compile Include="Settings\Config.cs" />
-    <Compile Include="Settings\ConfigurationSettings.cs" />
-    <Compile Include="Settings\RuntimeSettings.cs" />
-    <Compile Include="Utilities\DbConnectionManager.cs" />
-    <Compile Include="Utilities\ImageOperations.cs" />
-    <Compile Include="Utilities\ScreenShot.cs" />
-    <Compile Include="Utilities\VaftExpectedConditions.cs" />
-    <Compile Include="Utilities\WebDriverUtils.cs" />
-    <Compile Include="Utilities\WebElementUtils.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
