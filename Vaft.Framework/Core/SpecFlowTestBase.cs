@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
-using Vaft.Framework.BrowserStack;
 using Vaft.Framework.Driver;
 using Vaft.Framework.Logging;
 using Vaft.Framework.Settings;
@@ -90,12 +89,6 @@ namespace Vaft.Framework.Core
         public void CloseDriver()
         {
             CloseWebBrowser();
-
-            if (Config.Settings.RuntimeSettings.RunOnRemoteMachine == "BrowserStack" &
-                Config.Settings.BrowserStackSettings.BsTunnel)
-            {
-                BsTunnel.StopTunnel();
-            }
         }
 
         public abstract void InitPages();

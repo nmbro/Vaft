@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenQA.Selenium;
-using Vaft.Framework.BrowserStack;
 using Vaft.Framework.Driver;
 using Vaft.Framework.Logging;
 using Vaft.Framework.Settings;
@@ -44,12 +43,6 @@ namespace Vaft.Framework.Core
         public void CloseDriver()
         {
             CloseWebBrowser();
-
-            if (Config.Settings.RuntimeSettings.RunOnRemoteMachine == "BrowserStack" &
-                Config.Settings.BrowserStackSettings.BsTunnel)
-            {
-                BsTunnel.StopTunnel();
-            }
         }
 
         public string TakeScreenshot()

@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Drawing;
+#if NETFRAMEWORK
 using System.Drawing.Imaging;
+#endif
+#if !NETFRAMEWORK
+using ImageMagick;
+#endif
 using System.IO;
 using NLog;
 using NUnit.Framework;
@@ -53,6 +58,7 @@ namespace Vaft.Framework.Utilities
         /// <param name="fileName">Screenshot file name</param>
         /// <param name="element">The element on the current browser you want a screenshot of</param>
         /// <param name="imageFormat">Image saving format. Defaults to jpeg</param>
+#if NETFRAMEWORK
         public static string CaptureElementBitmap(IWebDriver driver, string directory, string fileName, IWebElement element, ImageFormat imageFormat = null)
         {
             imageFormat = imageFormat ?? ImageFormat.Jpeg;
@@ -72,6 +78,41 @@ namespace Vaft.Framework.Utilities
             Log.Info("Screenshot captured: " + fileName);
             return filename;
         }
+#else
+        public static string CaptureElementBitmap(IWebDriver driver, string directory, string fileName, IWebElement element, MagickFormat imageFormat)
+        {
+            Directory.CreateDirectory(directory);
+            var filename = directory + fileName + ".png";
+
+            // Take ScreenCap of Entire Screen
+            var screenshotDriver = driver as ITakesScreenshot;
+            Screenshot screenshot = screenshotDriver.GetScreenshot();
+
+            // Read image from file
+            using (MagickImage image = new MagickImage())
+            {
+                image.Read(new MemoryStream(screenshot.AsByteArray));
+
+                // Sets the output format to jpeg
+                image.Format = imageFormat;
+                image.Page = new MagickGeometry(element.Location.X, element.Location.Y);
+                image.Crop(new MagickGeometry(element.Size.Width, element.Size.Height),Gravity.Northwest);
+                image.RePage();
+
+                // Create byte array that contains a jpeg file
+
+                File.WriteAllBytes(filename, image.ToByteArray());
+
+                return filename;
+            }
+        }
+
+        public static string CaptureElementBitmap(IWebDriver driver, string directory, string fileName,
+            IWebElement element)
+        {
+            return CaptureElementBitmap(driver, directory, fileName, element, MagickFormat.Jpeg);
+        }
+#endif
 
         /// <summary> Compares image of entire Web browser window</summary>
         /// <param name="driver">Driver</param>
@@ -119,7 +160,11 @@ namespace Vaft.Framework.Utilities
             var diffImage = ComparisonDir + diffImageFileName + ".png";
 
             Directory.CreateDirectory(ComparisonDir);
+#if NETFRAMEWORK
             var actualImage = CaptureElementBitmap(driver, ComparisonDir, actualImageFileName, element);
+#else
+            var actualImage = CaptureElementBitmap(driver, ComparisonDir, actualImageFileName, element);
+#endif
             File.Copy(baselineImage, copiedBaselineImage);
 
             ImageOperations.CompareResult result = ImageOperations.CompareImage(copiedBaselineImage, actualImage, diffImage, tolerance);

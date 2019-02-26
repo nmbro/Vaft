@@ -3,7 +3,6 @@ using NLog;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
-using Vaft.Framework.BrowserStack;
 using Vaft.Framework.Driver;
 using Vaft.Framework.Logging;
 using Vaft.Framework.Settings;
@@ -74,12 +73,6 @@ namespace Vaft.Framework.Core
         private void CloseDriver()
         {
             CloseWebBrowser();
-
-            if (Config.Settings.RuntimeSettings.RunOnRemoteMachine == "BrowserStack" &
-                Config.Settings.BrowserStackSettings.BsTunnel)
-            {
-                BsTunnel.StopTunnel();
-            }
         }
 
         public void TakeScreenshotOnFailure()

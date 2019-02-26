@@ -1,7 +1,6 @@
 ﻿using System;
 using NLog;
 using OpenQA.Selenium;
-using Vaft.Framework.BrowserStack;
 using Vaft.Framework.DriverFactory;
 using Vaft.Framework.Settings;
 
@@ -19,19 +18,6 @@ namespace Vaft.Framework.Driver
             if (runOnRemote == "SeleniumGrid")
             {
                 Driver = new RemoteDriverFactory().CreateWebDriver();
-            }
-
-            else if (runOnRemote == "BrowserStack")
-            {
-                if (Config.Settings.BrowserStackSettings.BsTunnel)
-                {
-                    BsTunnel.LaunchTunnel();
-                    Driver = BrowserStackDriverFactory.CreateWebDriver();
-                }
-                else
-                {
-                    Driver = BrowserStackDriverFactory.CreateWebDriver();
-                }
             }
 
             else if (runOnRemote == "Appium")

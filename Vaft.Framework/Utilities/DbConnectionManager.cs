@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+#if NETFRAMEWORK
 using System.Data.OracleClient;
+#endif
 using System.Data.SqlClient;
 using Vaft.Framework.Settings;
 
@@ -18,9 +20,11 @@ namespace Vaft.Framework.Utilities
                 case "mssql":
                 case "MsSql":
                     return ExecuteMssql(sqlStatement);
+#if NETFRAMEWORK
                 case "oracle":
                 case "Oracle":
                     return ExecuteOracle(sqlStatement);
+#endif
                 default:
                     throw new ArgumentOutOfRangeException("'DatabaseType', Value: " + dbType + ". Please make sure that you have specified correct database type.");
             }
@@ -49,6 +53,7 @@ namespace Vaft.Framework.Utilities
             return returnValue;
         }
 
+#if NETFRAMEWORK
         private static Object ExecuteOracle(string sqlStatement)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["oracle"].ConnectionString;
@@ -71,5 +76,6 @@ namespace Vaft.Framework.Utilities
 
             return returnValue;
         }
+#endif
     }
 }

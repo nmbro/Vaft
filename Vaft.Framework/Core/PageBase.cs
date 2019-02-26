@@ -1,6 +1,8 @@
 ﻿using System;
 using OpenQA.Selenium;
+#if NETFRAMEWORK
 using OpenQA.Selenium.Support.PageObjects;
+#endif
 using Vaft.Framework.Settings;
 
 namespace Vaft.Framework.Core
@@ -12,7 +14,9 @@ namespace Vaft.Framework.Core
         protected PageBase(IWebDriver driver)
             : base(driver)
         {
+#if NETFRAMEWORK
             PageFactory.InitElements(driver, this);
+#endif
             //PageFactory.InitElements(this, new RetryingElementLocator(driver, TimeSpan.FromSeconds(3)));
         }
 
